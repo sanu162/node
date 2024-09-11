@@ -1,0 +1,21 @@
+version: 1.0
+jobs:
+  build_test:
+    docker:
+      - image:
+    steps:
+      - checkout
+      - run:
+          name: Install npm dependencies
+          command: |
+            npm install --save
+  build_docker_image:
+    dcoker:
+      image: 
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+        name: build Docker image
+        command: |
