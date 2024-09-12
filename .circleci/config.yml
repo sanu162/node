@@ -19,7 +19,7 @@ jobs:
       - run:
         name: build Docker image
         command: |
-          docker build -t appscripnodejs -t appscrip/appscripnodejs:latest  .
+          docker build -t node_learn -t appscrip/node_learn:latest  .
           echo $DOCKER_PASSWORD | docker login -u suryakant07 --password-stdin
           docker push suryakant07/node_learn:latest
 
@@ -28,3 +28,4 @@ workflows:
     jobs:
       - build_test
       - build_docker_image
+
