@@ -28,5 +28,5 @@ workflows:
   build_now:
     jobs:
       - build
-      # - build_docker_image
+      - build_docker_image
 
