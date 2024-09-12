@@ -9,7 +9,6 @@ jobs:
           name: Install npm dependencies
           command: |
             npm install --save
-            npm run dev
   # build_docker_image:
   #   docker:
   #     image:  cimg/node:22.8.0
