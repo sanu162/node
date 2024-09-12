@@ -12,15 +12,15 @@ jobs:
             npm run dev
   build_docker_image:
     docker:
-      image:  cimg/node:12
+      image:  cimg/node@20.17.0
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-        name: build Docker image
+        name: Build Docker image
         command: |
-          docker build -t node_learn -t appscrip/node_learn:latest  .
+          docker build -t node_learn -t suryakant07/node_learn:latest  .
           echo $DOCKER_PASSWORD | docker login -u suryakant07 --password-stdin
           docker push suryakant07/node_learn:latest
 
