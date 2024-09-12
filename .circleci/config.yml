@@ -1,6 +1,8 @@
 version: 2.1
 jobs:
-  build_test:
+  build:
+    docker:
+      - image:  cimg/node:12
     steps:
       - checkout
       - run:
@@ -22,8 +24,8 @@ jobs:
           docker push suryakant07/node_learn:latest
 
 workflows:
-  build_test:
+  build_now:
     jobs:
-      - build_test
+      - build
       - build_docker_image
 
