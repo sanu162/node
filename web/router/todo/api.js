@@ -23,29 +23,11 @@ const createTodo = async (req, h) => {
                 completed:completed,
                 assignedPersonId: personId,
             } };
-            const options = {upsert : true};
+            const options = {upsert : true, returnDocument: 'after'};
 
-            const todo = await todoSchema.updateOne(query, update, options);
-            // {
-            //     "acknowledged": true,
-            //     "modifiedCount": 1,
-            //     "upsertedId": null,
-            //     "upsertedCount": 0,
-            //     "matchedCount": 1
-            // }
-            // {
-            //     "acknowledged": true,
-            //     "modifiedCount": 0,
-            //     "upsertedId": "66e1314c355d0dc1b562ca71",
-            //     "upsertedCount": 1,
-            //     "matchedCount": 0
-            // }
-
-            if(todo.upsertedCount > 0){
-                return h.response({message:'The todo added!!'}).code(201);
-            };
+            const todo = await todoSchema.findOneAndUpdate(query, update, options);
             
-            return h.response(checkTodo).code(200);
+            return h.response(todo).code(200);
         } else {
             return h.response({message: "Please provide assigned person id of the todo.."}).code(422);
         }

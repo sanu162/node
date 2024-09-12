@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build -t node_learn -t suryakant07/node_learn:latest  .
+            docker build -t suryakant07/node_learn -t suryakant07/node_learn:latest  .
             echo $DOCKER_PASSWORD | docker login -u suryakant07 --password-stdin
             docker push suryakant07/node_learn:latest
 
