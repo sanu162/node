@@ -2,7 +2,7 @@ version: 1.0
 jobs:
   build_test:
     docker:
-      - image:
+      - image:  circleci/node:12
     steps:
       - checkout
       - run:
@@ -11,7 +11,7 @@ jobs:
             npm install --save
   build_docker_image:
     dcoker:
-      image: 
+      image:  circleci/node:12
     steps:
       - checkout
       - setup_remote_docker:
@@ -19,3 +19,12 @@ jobs:
       - run:
         name: build Docker image
         command: |
+          docker build -t appscripnodejs -t appscrip/appscripnodejs:latest  .
+          echo $DOCKER_PASSWORD | docker login -u suryakant07 --password-stdin
+          docker push suryakant07/node_learn:latest
+
+workflows:
+  build_test:
+    jobs:
+      - run_tests
+      - build_docker_image
