@@ -8,7 +8,7 @@ const jwt = require('@hapi/jwt')
 
 const server = hapi.server({
     port: config.server.PORT,
-    host: 'localhost',
+    host: '0.0.0.0',
     routes: {
 		cors: {
 			origin: ['*'],
