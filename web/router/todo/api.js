@@ -40,10 +40,17 @@ const createTodo = async (req, h) => {
 
 const getTodo = async (req, h) => {
     try {
+        const { search } = req.query;
+        const queryObject = {};
+
+        if (search) {
+            queryObject.name = {$regex: search, $options: "i"}
+        }
+        
         const { personId } = req
         if (personId){
-
-            const todos = await todoSchema.find({assignedPersonId:personId},{
+            queryObject.assignedPersonId = personId
+            const todos = await todoSchema.find(queryObject,{
                 name: 1,
                 description: 1,
                 _id: 1, 
