@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     signAccessToken: (personId) => {
         return new Promise((resolve, reject) => {
-            jwt.sign({aud:personId}, process.env.JWT_ACCESS_SECRET, {expiresIn: "60s",issuer: 'appscrip.com'}, (err, token) => {
+            jwt.sign({aud:personId}, process.env.JWT_ACCESS_SECRET, {expiresIn: "5m",issuer: 'appscrip.com'}, (err, token) => {
                 if (err) reject(err)
                 resolve(token)
             })

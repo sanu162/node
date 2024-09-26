@@ -1,12 +1,14 @@
 const person = require('./person');
 const root = require('./root')
 const todo = require('./todo')
+const flight = require('./flight')
 
 const register = (server, options) => {
     const routes = [
         ...person,
         ...todo,
-        ...root
+        ...root,
+        ...flight,
     ]
 
     server.route(routes)

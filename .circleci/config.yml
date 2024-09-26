@@ -1,8 +1,8 @@
-version: 1.0
+version: 2.1
 jobs:
-  build_test:
+  build:
     docker:
-      - image:
+      - image:  cimg/node:22.8.0
     steps:
       - checkout
       - run:
@@ -10,12 +10,23 @@ jobs:
           command: |
             npm install --save
   build_docker_image:
-    dcoker:
-      image: 
+    docker:
+      - image:  cimg/node:22.8.0
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-        name: build Docker image
-        command: |
+          name: Build Docker image
+          command: |
+            docker build -t suryakant07/node_learn -t suryakant07/node_learn:latest  .
+            echo $DOCKER_PASSWORD | docker login -u suryakant07 --password-stdin
+            docker push suryakant07/node_learn:latest
+
+workflows:
+  build_now:
+    jobs:
+      - build
+      - build_docker_image:
+          requires:
+            - build

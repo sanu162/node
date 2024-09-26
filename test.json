@@ -1,0 +1,12 @@
+[
+    {
+        "database": "test",
+        "collection": "teachers",            
+        "count": 50,                  
+        "content": {                 
+            "name": { "type": "faker", "method": "FirstName"},
+            "age": { "type": "int", "min": 20,"max": 25},
+            "gender": { "type": "enum", "values":["male","female"], "randomOrder":true }
+        }
+    }
+]

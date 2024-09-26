@@ -1,8 +1,12 @@
 const joi = require('joi');
 const mongoose = require('mongoose')
 const personSchema = require('../../../models').person
+const otpSchema = require('../../../models').otp
 const bcrypt = require('bcryptjs')
 const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../../common/jwtHelper')
+const { transporter } = require('../../common/mailHelper');
+const { otp } = require('../../../models');
+const { error } = require('winston');
 
 const query = joi.object({
     id : joi.string().error(new Error('invalid id...')),
@@ -106,6 +110,81 @@ const deletePerson = async (req, h) => {
     }
 }
 
+const sendMail = (personInstance, otp) => {
+    const info =  transporter.sendMail({
+        from : process.env.AUTH_EMAIL,
+        to : personInstance.email,
+        subject : "OTP for mail registration",
+        html : "<b>"+ otp +"</b>"
+    });
+
+    return info
+}
+
+const forgotPassword = async (req, h) => {
+    try{
+        const { email } = req.payload;
+        const otp = Math.floor((Math.random() * 90000) + 10000);
+
+        const exisitngPerson = await personSchema.findOne({ email });
+        if (!exisitngPerson) return h.response({message:"email not registered"}).code(409);
+
+        const mail = await sendMail(exisitngPerson, otp)
+        let accessToken;
+        if (mail){
+            accessToken = await signAccessToken(exisitngPerson._id)
+        }
+
+        const newotpSchema = new otpSchema ({
+            user_id:exisitngPerson._id,
+            otp:otp,
+            created_at:Date.now(),
+            expires_at:Date.now()+300000
+        });
+
+        const createOtp = otpSchema.create(newotpSchema)
+        if (createOtp){
+            return h.response({message:"otp sent",accessToken:accessToken})
+        } else {
+            return h.response({message:"error while inserting otp"}).code(400)
+        }
+        
+    } catch (error) {
+        return h.response({message:error.message}).code(400);
+    }
+}
+
+const resetPassword  = async (req, h) => {
+    try {
+        const { otp, password } = req.payload;
+        const { personId } = req;
+
+        console.log(personId);
+        
+
+        const existingOtp = await otpSchema.findOne({ user_id:personId });
+        if (!existingOtp) return h.response({message:"otp not found for you! Please send otp then try later."}).code(409);
+
+        if (otp == existingOtp.otp) {
+
+            const updatePerson = await personSchema.updateOne({_id:personId}, {password:password})
+            if (updatePerson) {
+                await otpSchema.findByIdAndDelete(existingOtp._id);
+
+                return h.response({message:"success"}).code(200)
+            }
+
+            return h.response({message:updatePerson}).code(200)
+            
+        }
+        return h.response({message:"otp unmatched"}).code(200)
+    } catch (error) {
+        return h.response({message:error.message}).code(400);
+    }
+
+    
+}
+
 const login = async (req, h) => {
     try {
         const {email ,password} = req.payload
@@ -161,6 +240,8 @@ module.exports = {
     getPersonById,
     updatePerson,
     deletePerson,
+    forgotPassword,
+    resetPassword,
     login,
     refreshToken,
 }

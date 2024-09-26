@@ -73,6 +73,24 @@ const Routes = [
 
 	{
 		method: 'POST',
+		path: 'person/forgot',
+		handler: api.forgotPassword,
+		options: {
+			auth: false,
+		}
+	},
+
+	{
+		method: 'POST',
+		path: 'person/reset',
+		handler: api.resetPassword,
+		options: {
+			auth:'my_jwt_strategy',
+		}
+	},
+
+	{
+		method: 'POST',
 		path: 'auth/person/login',
 		handler: api.login,
 		config: {
