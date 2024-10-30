@@ -3,6 +3,7 @@ const root = require('./root')
 const todo = require('./todo')
 const flight = require('./flight')
 const ppt = require('./puppet')
+const mqtt = require('./mqttcom')
 
 const register = (server, options) => {
     const routes = [
@@ -11,6 +12,7 @@ const register = (server, options) => {
         ...root,
         ...flight,
         ...ppt,
+        ...mqtt
     ]
 
     server.route(routes)

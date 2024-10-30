@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+        }
+        .header img {
+            max-width: 150px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+        .btn {
+            display: block;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 20px auto;
+            max-width: 200px;
+        }
+        .note {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #cccccc;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+            margin-top: 20px;
+        }
+        /* Responsive design */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
+            .btn {
+                padding: 10px;
+                font-size: 14px;
+                max-width: 100%;
+            }
+            .note {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="https://gleamyourcasa.com/logo.png" alt="Gleam Your Casa Logo">
+        </div>
+        <h1>Hello {{provider_name}}!</h1>
+        <p>A new job that matches your profile has just been posted on Flexcrew. 
+            Don't miss out on this opportunity!</p>
+
+        <div class="note">
+            <p>Job Details:
+
+                Job Title: {{job_title}}
+                Location: {{location.fullAddress}}
+                Start Date: {{start_date}}
+                You can view and apply for the job here: {{job_link}}</p>
+        </div>
+        <p>Best Regards,<br>
+            The Flexcrew Team</p>
+        <div class="footer">
+            <p>Have more questions? Contact us at [link for chat] or email us at <a href="mailto:contact@gleamyourcasa.com">contact@gleamyourcasa.com</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<h1>Hello {{employer_name}}!</h1>
+        <p>
+            We’d like to inform you that your job posting for {{job_title}} has expired.
+        </p>
+
+        <div class="note">
+            <p>Here’s what you can do next:<br><br>
+
+                Review the job details and timeline.<br>
+Connect with the employer to finalize any arrangements.<br>
+<a href="{{job_link}}">View Job Details</a>
+</p>
+        </div>
+        <p>
+            If you’d like to repost the job or need any assistance, feel free to reach out to our support team.
+         </p>
+        <p>Best Regards,<br>
+            The Flexcrew Team</p>
+
+            "Hi [User's First Name],
+
+Good news! Your payment has been successfully processed.
+
+Here are the details:
+
+
+Amount: [Payment Amount]
+Date: [Payment Date]
+Transaction ID: [Transaction ID]
+You can view your payment history or download the receipt in your account. If you have any questions, feel free to contact our support team.
+
+Best Regards,
+The Flexcrew Team"
+
+            
+            <!-- const authDataVerify = {}
+            authDataVerify.immediateRevoke = 'false'
+            authDataVerify.multiLogin = 'true'
+            authDataVerify.metaData = {}
+            authDataVerify.userId = customerId.toString()
+            authDataVerify.userType = 'user'
+            authDataVerify.accessTTL = config.get('FPEXPIRETIME')
+            authDataVerify.refreshTTL = config.get('FPEXPIRETIME')
+            const authTokenVerify = await Auth.generateTokens(authDataVerify)
+
+    await email.getPugAndSendMail({
+        templateName: '/onSuccessfulSignUp.pug',
+        toEmail: req.payload.email,
+        subject: i18nLang.__('email.newSignUp', config.get('APP_NAME')),
+        userName: req.payload.firstName,
+        trigger: 'Customer Sign Up',
+        keysToReplace: {
+          customer_name: req.payload.firstName.toUpperCase(),
+          userName: newCustomerData.userName ? newCustomerData.userName : '',
+          email: newCustomerData.email ? newCustomerData.email : '',
+          password: randomPassword,
+          appName: config.get('APP_NAME'),
+          reset_pass: `${config.get('VERIFY_ACCOUNT')}/verify-email.php?email=${req.payload.email}&token=${authTokenVerify.accessToken}`
+        }
+      }) -->
+<!-- <body></body>
+    <header>
+        <div class="logo-container">
+            <img src="https://cdn.flexcrewusa.com/adminAssets/0/0/Logo.png" alt="Logo" class="flexcrewLogo">
+        </div>
+    </header>
+
+    <main>
+{{{body}}}
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="Facebook" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://twitter.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/100px-X_logo_2023.svg.png" alt="Twitter" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://instagram.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png" alt="Instagram" style="width: 30px; height: 30px;">
+                </a>
+                <a href="https://linkedin.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+            </div>
+            <p>Copyright &copy; 2024, Flex Crew.</p>
+        </div>
+    </footer>
+</body> -->

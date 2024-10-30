@@ -47,7 +47,7 @@ exports.start = async () => {
     try {
         await db.connect();
         await server.start();
-        console.log(`server is running by process id ${process.pid}`);
+        console.log(`server is running by process id ${process.pid} at http://localhost:${config.server.PORT}`);
     } catch (error) {
         console.log(`${error.message}`);
         process.exit(1)

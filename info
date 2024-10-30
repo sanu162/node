@@ -1,0 +1,22 @@
+jobApply => insert => jobApplication => notifyiToCostumer
+
+
+ employer worker job relation
+
+employer => send => invitation => toWorker => mail_to_worker => 1004
+Then
+    Worker => accept_Invitation => mail_to_employer => 2002
+Or 
+    Worker => reject_Invitation => mail_to_employer => 2003
+
+worker => send => application => toEmployer => mail_to_employer => 2001
+Then    
+    Employer => accept_application => mail_to_worker => 1002
+Or
+    Employer => reject_application => mail_to_worker => 1003
+
+employer => posted_new_job
+Then
+    mail_to_worker => new_job_posted => 1001
+
+
