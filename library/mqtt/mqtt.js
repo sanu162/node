@@ -5,7 +5,6 @@ const host = 'broker.emqx.io'
 const port = '1883'
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
 const mqttConn = `${protocol}://${host}:${port}` 
-mqtt://broker.emqx.io:1883
 
 const topic = '/test/node/sn'
 
